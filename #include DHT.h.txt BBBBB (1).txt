@@ -1,0 +1,24 @@
+
+#include <ESP8266WiFi.h>
+#include <ThingSpeak.h>
+
+const char* ssid = "moto g64 5G_8132";
+const char* pass = "apeksha54321";
+unsigned long channelID =3484823;
+const char* apiKey ="RIE6T5AZ4JDZCYJ2";
+
+WiFiClient client;
+int mq2Pin = A0;
+
+void setup() {
+  WiFi.begin(ssid, pass);
+  while (WiFi.status() != WL_CONNECTED) delay(500);
+  ThingSpeak.begin(client);
+}
+
+void loop() {
+  int gas = analogRead(mq2Pin);
+  ThingSpeak.setField(1, gas);
+  ThingSpeak.WriteFields(3484823,RIE6T5AZ4JDZCYJ2);
+  delay(15000);
+}
